@@ -6,140 +6,184 @@
     <title>Comune di Definitive | Portale Istituzionale</title>
     <style>
         :root {
-            --bg-color: #0d0d0d;
-            --text-color: #e0e0e0;
+            --bg-color: #080808;
+            --text-color: #f0f0f0;
             --accent: #c5a059;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-dim: rgba(197, 160, 89, 0.15);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
             --status-green: #2ecc71;
         }
 
-        @media (prefers-color-scheme: light) {
-            :root.auto-light {
-                --bg-color: #f5f5f7;
-                --text-color: #1a1a1a;
-                --glass-bg: rgba(0, 0, 0, 0.05);
-                --glass-border: rgba(0, 0, 0, 0.1);
-            }
-        }
-
         body {
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            transition: background 0.5s ease;
+            overflow-x: hidden;
+            letter-spacing: -0.02em;
         }
 
+        /* Banner Allerta Minimal */
         .alert-banner {
-            background: var(--status-green);
-            color: black;
+            background: linear-gradient(90deg, #1a1a1a, #000);
+            border-bottom: 1px solid var(--accent-dim);
+            color: var(--accent);
             text-align: center;
-            padding: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            padding: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         header {
-            padding: 40px 20px;
+            padding: 80px 20px 40px;
             text-align: center;
-            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .city-name {
+            font-size: 3rem;
+            font-weight: 200;
+            letter-spacing: 15px;
+            margin: 0;
+            color: white;
+            text-transform: uppercase;
         }
 
         .status-bar {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            font-size: 0.75rem;
-            margin-top: 15px;
+            gap: 25px;
+            font-size: 0.7rem;
+            margin-top: 30px;
+            opacity: 0.6;
         }
 
-        .status-item { display: flex; align-items: center; gap: 5px; }
-        .dot { height: 8px; width: 8px; border-radius: 50%; background: var(--status-green); }
+        .status-item { display: flex; align-items: center; gap: 8px; }
+        .dot { height: 6px; width: 6px; border-radius: 50%; background: var(--status-green); box-shadow: 0 0 10px var(--status-green); }
 
         nav {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            background: var(--glass-bg);
+            gap: 40px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+            background: rgba(0,0,0,0.8);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         nav a {
             text-decoration: none;
             color: var(--text-color);
-            font-size: 0.8rem;
-            opacity: 0.7;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            transition: 0.4s;
+        }
+
+        nav a:hover, nav a.active { opacity: 1; color: var(--accent); }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+
+        /* Card Estetica */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
             transition: 0.3s;
         }
 
-        nav a:hover { opacity: 1; color: var(--accent); }
+        h2 { font-weight: 300; font-size: 1.5rem; margin-bottom: 30px; color: var(--accent); }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-
-        .card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(15px);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .grid-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card { text-align: center; }
-        .stat-card h3 { color: var(--accent); margin: 0; font-size: 1.5rem; }
-
-        .bando-item {
+        /* Sezione Bandi */
+        .bando-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 20px 0;
             border-bottom: 1px solid var(--glass-border);
         }
 
-        .bando-item:last-child { border-bottom: none; }
+        .bando-row:last-child { border-bottom: none; }
 
-        .btn-action {
+        .bando-info strong { display: block; font-size: 1.1rem; margin-bottom: 4px; font-weight: 400; }
+        .bando-info span { font-size: 0.7rem; color: var(--status-green); text-transform: uppercase; font-weight: 700; }
+
+        .btn-gold {
             background: var(--accent);
             color: black;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: 700;
             text-decoration: none;
-            font-size: 0.75rem;
-            cursor: pointer;
+            font-size: 0.7rem;
+            text-transform: uppercase;
             transition: 0.3s;
         }
 
-        .btn-action:hover { background: #e0b96f; transform: scale(1.05); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(197, 160, 89, 0.3); }
 
-        section { display: none; animation: fadeIn 0.4s ease; }
+        /* Votazioni Coming Soon */
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            border: 1px dashed var(--glass-border);
+            border-radius: 15px;
+        }
+
+        .coming-soon h3 { font-weight: 200; font-size: 2rem; margin: 0; letter-spacing: 4px; }
+        .coming-soon p { opacity: 0.4; font-size: 0.8rem; margin-top: 10px; }
+
+        section { display: none; animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         section.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Consiglio Estetica */
+        .member-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .member-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.01);
+            border-radius: 15px;
+        }
+
+        .avatar-placeholder {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
     </style>
 </head>
-<body onload="checkTime()">
+<body>
 
-    <div id="alert" class="alert-banner">
-        🟢 STATO ATTUALE: SITUAZIONE CALMA - NESSUNA RESTRIZIONE
+    <div class="alert-banner">
+        Stato Istituzionale: Operativo
     </div>
 
     <header>
-        <h1 style="letter-spacing: 8px; font-weight: 200;">DEFINITIVE</h1>
+        <h1 class="city-name">Definitive</h1>
         <div class="status-bar">
             <div class="status-item"><span class="dot"></span> MUNICIPIO</div>
             <div class="status-item"><span class="dot"></span> POLIZIA</div>
@@ -148,84 +192,72 @@
     </header>
 
     <nav>
-        <a href="#" onclick="showSection('home')">HOME</a>
-        <a href="#" onclick="showSection('bandi')">BANDI</a>
-        <a href="#" onclick="showSection('voti')">VOTAZIONI</a>
-        <a href="#" onclick="showSection('giunta')">CONSIGLIO</a>
+        <a href="#" onclick="showSection('home', this)" class="active">Home</a>
+        <a href="#" onclick="showSection('bandi', this)">Bandi</a>
+        <a href="#" onclick="showSection('voti', this)">Votazioni</a>
+        <a href="#" onclick="showSection('giunta', this)">Consiglio</a>
     </nav>
 
     <div class="container">
         
         <section id="home" class="active">
-            <div class="grid-stats">
-                <div class="card stat-card">
-                    <p>CITTADINI REGISTRATI</p>
-                    <h3 id="popolazione">1,240</h3>
-                </div>
-                <div class="card stat-card">
-                    <p>BILANCIO PUBBLICO</p>
-                    <h3>$ 4.5M</h3>
-                </div>
-                <div class="card stat-card">
-                    <p>TASSA COMUNALE</p>
-                    <h3>5%</h3>
-                </div>
-            </div>
-            
             <div class="card">
-                <h2>Gazzetta Ufficiale</h2>
-                <p><strong>18/01/2026:</strong> Portale Amministrativo aggiornato con nuovi sistemi di voto.</p>
-                <p><strong>17/01/2026:</strong> Approvata la nuova riforma sulla gestione dei rifiuti urbani.</p>
+                <h2>Benvenuti nel Portale</h2>
+                <p style="font-weight: 200; line-height: 1.8; opacity: 0.8;">
+                    Il Comune di Definitive rappresenta l'eccellenza nell'amministrazione digitale. 
+                    Qui potrete consultare i bandi attivi, partecipare alla vita democratica 
+                    e conoscere i membri della Giunta Comunale.
+                </p>
+                <div style="margin-top: 40px; border-left: 2px solid var(--accent); padding-left: 20px;">
+                    <small style="display:block; opacity: 0.4;">ULTIMO AGGIORNAMENTO</small>
+                    <span style="font-size: 0.9rem;">18 Gennaio 2026 - Revisione Portale 2.0</span>
+                </div>
             </div>
         </section>
 
         <section id="bandi">
-            <h2>Bandi Comunali</h2>
             <div class="card">
-                <div class="bando-item">
-                    <div>
-                        <strong>Bando per Sindaco</strong><br>
-                        <small style="color:var(--status-green)">Stato: Aperto</small>
+                <h2>Bandi di Concorso</h2>
+                <div class="bando-row">
+                    <div class="bando-info">
+                        <strong>Carica di Sindaco</strong>
+                        <span>Disponibile</span>
                     </div>
-                    <a href="https://discord.com/channels/@me/1461894269743792161" class="btn-action">CANDIDATI</a>
+                    <a href="https://discord.com/channels/@me/1461894269743792161" class="btn-gold">Candidati</a>
                 </div>
-                <div class="bando-item">
-                    <div>
-                        <strong>Bando per Avvocato</strong><br>
-                        <small style="color:var(--status-green)">Stato: Aperto</small>
+                <div class="bando-row">
+                    <div class="bando-info">
+                        <strong>Avvocatura Comunale</strong>
+                        <span>Disponibile</span>
                     </div>
-                    <a href="https://discord.com/channels/@me/1461894269743792161" class="btn-action">CANDIDATI</a>
+                    <a href="https://discord.com/channels/@me/1461894269743792161" class="btn-gold">Candidati</a>
                 </div>
             </div>
         </section>
 
         <section id="voti">
-            <h2>Elezioni Amministrative</h2>
-            <p>Seleziona un candidato per inviare il tuo voto al registro log.</p>
             <div class="card">
-                <div class="bando-item">
-                    <span>Candidato Esempio A</span>
-                    <button class="btn-action" onclick="sendVote('Candidato A')">VOTA</button>
-                </div>
-                <div class="bando-item">
-                    <span>Candidato Esempio B</span>
-                    <button class="btn-action" onclick="sendVote('Candidato B')">VOTA</button>
+                <div class="coming-soon">
+                    <h3>COMING SOON</h3>
+                    <p>Le sessioni elettorali non sono ancora state indette dallo staff amministrativo.</p>
                 </div>
             </div>
         </section>
 
         <section id="giunta">
-            <h2>Consiglio Comunale</h2>
-            <div class="grid-stats">
-                <div class="card stat-card">
-                    <div style="width:60px; height:60px; background:#333; border-radius:50%; margin: 0 auto 10px;"></div>
-                    <h4>Il Sindaco</h4>
-                    <p>In attesa di nomina</p>
-                </div>
-                <div class="card stat-card">
-                    <div style="width:60px; height:60px; background:#333; border-radius:50%; margin: 0 auto 10px;"></div>
-                    <h4>Vicesindaco</h4>
-                    <p>In attesa di nomina</p>
+            <div class="card">
+                <h2>Giunta Comunale</h2>
+                <div class="member-grid">
+                    <div class="member-card">
+                        <div class="avatar-placeholder">S</div>
+                        <strong>Sindaco</strong>
+                        <p style="font-size: 0.7rem; opacity: 0.5;">In attesa di nomina</p>
+                    </div>
+                    <div class="member-card">
+                        <div class="avatar-placeholder">V</div>
+                        <strong>Vicesindaco</strong>
+                        <p style="font-size: 0.7rem; opacity: 0.5;">In attesa di nomina</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -233,46 +265,14 @@
     </div>
 
     <script>
-        function showSection(id) {
+        function showSection(id, element) {
+            // Cambio sezione
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-        }
-
-        function checkTime() {
-            const hour = new Date().getHours();
-            if (hour >= 7 && hour <= 19) {
-                document.documentElement.classList.add('auto-light');
-            }
-        }
-
-        // FUNZIONE VOTI (Invia al canale 1462023817512747144 tramite Webhook)
-        async function sendVote(nomeCandidato) {
-            const webhookURL = "IL_TUO_WEBHOOK_URL_QUI"; // INCOLLA QUI IL TUO URL
             
-            const payload = {
-                embeds: [{
-                    title: "🗳️ Nuova Preferenza Elettorale",
-                    description: `Un cittadino ha votato per: **${nomeCandidato}**`,
-                    color: 12951641,
-                    footer: { text: "Destinazione Log: 1462023817512747144" },
-                    timestamp: new Date()
-                }]
-            };
-
-            if(webhookURL === "IL_TUO_WEBHOOK_URL_QUI") {
-                alert("Configura l'URL del Webhook nel codice per inviare il voto!");
-            } else {
-                try {
-                    await fetch(webhookURL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    alert("Voto registrato con successo!");
-                } catch (error) {
-                    alert("Errore nell'invio del voto.");
-                }
-            }
+            // Cambio stato menu
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            element.classList.add('active');
         }
     </script>
 </body>
