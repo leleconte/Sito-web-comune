@@ -34,7 +34,6 @@
             z-index: -1;
         }
 
-        /* Navigazione Responsive */
         .top-nav {
             background: rgba(0,0,0,0.85);
             backdrop-filter: blur(15px);
@@ -77,7 +76,7 @@
 
         .logo-text {
             font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 10vw, 4rem); /* Ridimensionamento fluido */
+            font-size: clamp(2rem, 10vw, 4rem);
             letter-spacing: clamp(5px, 3vw, 20px);
             margin: 0;
             background: linear-gradient(to bottom, #fff, #c5a059);
@@ -129,15 +128,9 @@
             border-radius: 12px;
             color: white;
             font-family: 'Inter', sans-serif;
-            font-size: 16px; /* Evita lo zoom automatico su iOS */
+            font-size: 16px;
             box-sizing: border-box;
             transition: 0.3s;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: rgba(197, 160, 89, 0.05);
         }
 
         .btn-submit {
@@ -156,7 +149,6 @@
             font-size: 0.9rem;
         }
 
-        /* Bandi Mobile-Friendly */
         .bando-box {
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.05);
@@ -181,6 +173,8 @@
             white-space: nowrap;
         }
 
+        .btn-luxury:hover { background: var(--accent); color: black; }
+
         section { display: none; animation: fadeIn 0.5s ease-out; }
         section.active { display: block; }
 
@@ -188,12 +182,10 @@
 
         footer { text-align: center; padding: 40px 20px; color: #444; font-size: 0.65rem; letter-spacing: 1px; }
 
-        /* Media Queries specifiche */
         @media (max-width: 480px) {
             .nav-content { justify-content: center; }
-            .nav-content a { font-size: 0.6rem; padding: 5px 8px; }
             .bando-box { flex-direction: column; text-align: center; }
-            .btn-luxury { width: 100%; box-sizing: border-box; text-align: center; }
+            .btn-luxury { width: 100%; text-align: center; }
         }
     </style>
 </head>
@@ -234,11 +226,23 @@
 
         <section id="bandi">
             <div class="glass-card">
-                <h2>Bandi Pubblici</h2>
+                <h2>Concorsi & Arruolamenti</h2>
+                
                 <div class="bando-box">
-                    <div><strong style="font-size: 0.9rem;">Candidatura Sindaco</strong></div>
-                    <a href="https://discord.com/channels/@me/1461894269743792161" class="btn-luxury">APRI BANDO</a>
+                    <div><strong style="font-size: 0.9rem;">Dipartimento di Polizia</strong></div>
+                    <a href="https://discord.com/channels/1458608660728119386/1458608665492979764" class="btn-luxury">APRI CANALE</a>
                 </div>
+
+                <div class="bando-box">
+                    <div><strong style="font-size: 0.9rem;">Governo Locale</strong></div>
+                    <a href="https://discord.com/channels/1458608660728119386/1462029970921623684" class="btn-luxury">APRI CANALE</a>
+                </div>
+
+                <div class="bando-box">
+                    <div><strong style="font-size: 0.9rem;">Corpo Medico</strong></div>
+                    <a href="https://discord.com/channels/1458608660728119386/1458608665492979766" class="btn-luxury">APRI CANALE</a>
+                </div>
+
                 <div class="bando-box">
                     <div><strong style="font-size: 0.9rem;">Albo Avvocati</strong></div>
                     <a href="https://discord.com/channels/@me/1461894269743792161" class="btn-luxury">APRI BANDO</a>
@@ -298,23 +302,17 @@
 
         document.getElementById('incontroForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const webhookURL = "https://discord.com/api/webhooks/1462231867091714355/btbnAH-DGd-h_CIqGaGtp17K9yP5oj7F4TAxTJ8hOMoD19vmSSgg-nKFYWAfzvv_zI9x";
             
-            const nome = document.getElementById('nome').value;
-            const telefono = document.getElementById('telefono').value;
-            const motivo = document.getElementById('motivo').value;
-            const messaggio = document.getElementById('messaggio').value;
-
             const payload = {
                 embeds: [{
                     title: "📅 Nuova Richiesta di Incontro",
                     color: 12951641,
                     fields: [
-                        { name: "👤 Cittadino", value: nome, inline: true },
-                        { name: "📞 Telefono", value: telefono, inline: true },
-                        { name: "📋 Motivo", value: motivo, inline: false },
-                        { name: "💬 Messaggio", value: messaggio || "Nessun dettaglio aggiuntivo" }
+                        { name: "👤 Cittadino", value: document.getElementById('nome').value, inline: true },
+                        { name: "📞 Telefono", value: document.getElementById('telefono').value, inline: true },
+                        { name: "📋 Motivo", value: document.getElementById('motivo').value, inline: false },
+                        { name: "💬 Messaggio", value: document.getElementById('messaggio').value || "Nessun dettaglio aggiuntivo" }
                     ],
                     footer: { text: "Sistema Istituzionale Definitive" },
                     timestamp: new Date()
@@ -331,16 +329,12 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-
                 if (response.ok) {
-                    alert("Richiesta inviata correttamente! Il Comune ti ricontatterà.");
+                    alert("Richiesta inviata correttamente!");
                     this.reset();
-                } else {
-                    alert("Errore nell'invio.");
-                }
-            } catch (error) {
-                alert("Errore di connessione.");
-            } finally {
+                } else { alert("Errore nell'invio."); }
+            } catch (error) { alert("Errore di connessione."); }
+            finally {
                 btn.innerText = "INVIA RICHIESTA";
                 btn.disabled = false;
             }
